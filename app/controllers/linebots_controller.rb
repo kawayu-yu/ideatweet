@@ -29,24 +29,24 @@ class LinebotsController < ApplicationController
             }]
           # マッチングしなかった場合は元々の仕様と同じようにキーワードを2つ選択して返す
           else
-          seed1 = select_word
-          seed2 = select_word
-          while seed1 == seed2
+            seed1 = select_word
             seed2 = select_word
+            while seed1 == seed2
+              seed2 = select_word
+            end
+            message = [{
+              type: 'text',
+              text: "キーワード何にしようかな〜〜"
+            },{
+              type: 'text',
+              text: "#{seed1} × #{seed2} !!"
+            }]
+            client.reply_message(event['replyToken'], message)
           end
-          message = [{
-            type: 'text',
-            text: "キーワード何にしようかな〜〜"
-          },{
-            type: 'text',
-            text: "#{seed1} × #{seed2} !!"
-          }]
-          client.reply_message(event['replyToken'], message)
         end
-      end
-    }
-    head :ok
-  end
+      }
+      head :ok
+    end
   private
   def client
     @client ||= Line::Bot::Client.new { |config|
