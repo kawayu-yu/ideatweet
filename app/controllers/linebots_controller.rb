@@ -41,6 +41,7 @@ class LinebotsController < ApplicationController
               type: 'text',
               text: "#{seed1} × #{seed2} !!"
             }]
+          end
             client.reply_message(event['replyToken'], message)
           end
         end
